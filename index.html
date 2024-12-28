@@ -1,13 +1,57 @@
-<div style="text-align: right;">
-    <h1>เลือกข้อมูลการสอน</h1>
-    <label for="methodSelect">เลือกวิธีการสอน:</label>
-    <select id="methodSelect" onchange="showSteps()">
-        <option value="">-- เลือกวิธีการสอน --</option>
-        <option value="PBL">PBL</option>
-        <option value="BBL">BBL</option>
-    </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกข้อมูลการสอน</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .step {
+            margin: 10px 0;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>เลือกข้อมูลการสอน</h1>
+        <label for="methodSelect">เลือกวิธีการสอน:</label>
+        <select id="methodSelect" onchange="showSteps()">
+            <option value="">-- เลือกวิธีการสอน --</option>
+            <option value="PBL">PBL</option>
+            <option value="BBL">BBL</option>
+        </select>
 
-    <div class="content" id="steps" style="margin-top: 20px;"></div>
+        <div class="content" id="steps" style="margin-top: 20px;"></div>
+
+        <button onclick="printData()">ปริ้นข้อมูล</button>
+    </div>
 
     <script>
         function showSteps() {
@@ -19,15 +63,15 @@
                     <h2>ขั้นตอนของ PBL</h2>
                     <div class="step">
                         <label>ขั้นนำ:</label>
-                        <input type="text" placeholder="กรอกข้อมูลขั้นนำ" style="width: 80%; padding: 5px;">
+                        <input type="text" placeholder="กรอกข้อมูลขั้นนำ" class="input-step" style="width: 80%; padding: 5px;">
                     </div>
                     <div class="step">
                         <label>ขั้นสอน:</label>
-                        <input type="text" placeholder="กรอกข้อมูลขั้นสอน" style="width: 80%; padding: 5px;">
+                        <input type="text" placeholder="กรอกข้อมูลขั้นสอน" class="input-step" style="width: 80%; padding: 5px;">
                     </div>
                     <div class="step">
                         <label>ขั้นสรุป:</label>
-                        <input type="text" placeholder="กรอกข้อมูลขั้นสรุป" style="width: 80%; padding: 5px;">
+                        <input type="text" placeholder="กรอกข้อมูลขั้นสรุป" class="input-step" style="width: 80%; padding: 5px;">
                     </div>
                 `;
             } else if (selectedMethod === "BBL") {
@@ -35,24 +79,50 @@
                     <h2>ขั้นตอนของ BBL</h2>
                     <div class="step">
                         <label>ขั้นนำ:</label>
-                        <input type="text" placeholder="กรอกข้อมูลขั้นนำ" style="width: 80%; padding: 5px;">
+                        <input type="text" placeholder="กรอกข้อมูลขั้นนำ" class="input-step" style="width: 80%; padding: 5px;">
                     </div>
                     <div class="step">
                         <label>ขั้นสมาธิ:</label>
-                        <input type="text" placeholder="กรอกข้อมูลขั้นสมาธิ" style="width: 80%; padding: 5px;">
+                        <input type="text" placeholder="กรอกข้อมูลขั้นสมาธิ" class="input-step" style="width: 80%; padding: 5px;">
                     </div>
                     <div class="step">
                         <label>ขั้นสอน:</label>
-                        <input type="text" placeholder="กรอกข้อมูลขั้นสอน" style="width: 80%; padding: 5px;">
+                        <input type="text" placeholder="กรอกข้อมูลขั้นสอน" class="input-step" style="width: 80%; padding: 5px;">
                     </div>
                     <div class="step">
                         <label>ขั้นสรุป:</label>
-                        <input type="text" placeholder="กรอกข้อมูลขั้นสรุป" style="width: 80%; padding: 5px;">
+                        <input type="text" placeholder="กรอกข้อมูลขั้นสรุป" class="input-step" style="width: 80%; padding: 5px;">
                     </div>
                 `;
             } else {
                 stepsDiv.innerHTML = "";
             }
         }
+
+        function printData() {
+            const inputs = document.querySelectorAll(".input-step");
+            let printContent = "<h1>ข้อมูลที่กรอก:</h1>";
+
+            inputs.forEach((input, index) => {
+                printContent += `<p>ขั้นตอนที่ ${index + 1}: ${input.value}</p>`;
+            });
+
+            const printWindow = window.open("", "_blank");
+            printWindow.document.open();
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>ข้อมูลที่กรอก</title>
+                    </head>
+                    <body>
+                        ${printContent}
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
     </script>
-</div>
+</body>
+</html>
+
