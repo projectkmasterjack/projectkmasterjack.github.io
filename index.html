@@ -1,12 +1,58 @@
-<select id="mainDropdown" onchange="showSteps()">
-  <option value="">-- กรุณาเลือก --</option>
-  <option value="4mat">4 MAT</option>
-  <option value="pbl">PBL</option>
-</select>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกข้อมูลการสอน</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .content {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>เลือกข้อมูลการสอน</h1>
+    <label for="methodSelect">เลือกวิธีการสอน:</label>
+    <select id="methodSelect" onchange="showSteps()">
+        <option value="">-- เลือกวิธีการสอน --</option>
+        <option value="PBL">PBL</option>
+        <option value="BBL">BBL</option>
+    </select>
 
-<div id="stepsContainer" class="step-container">
-  <div class="step" id="step1"></div>
-  <div class="step" id="step2"></div>
-  <div class="step" id="step3"></div>
-  <div class="step" id="step4"></div>
-</div>
+    <div class="content" id="steps"></div>
+
+    <script>
+        function showSteps() {
+            const stepsDiv = document.getElementById("steps");
+            const selectedMethod = document.getElementById("methodSelect").value;
+
+            if (selectedMethod === "PBL") {
+                stepsDiv.innerHTML = `
+                    <h2>ขั้นตอนของ PBL</h2>
+                    <ul>
+                        <li>ขั้นนำ</li>
+                        <li>ขั้นสอน</li>
+                        <li>ขั้นสรุป</li>
+                    </ul>
+                `;
+            } else if (selectedMethod === "BBL") {
+                stepsDiv.innerHTML = `
+                    <h2>ขั้นตอนของ BBL</h2>
+                    <ul>
+                        <li>ขั้นนำ</li>
+                        <li>ขั้นสมาธิ</li>
+                        <li>ขั้นสอน</li>
+                        <li>ขั้นสรุป</li>
+                    </ul>
+                `;
+            } else {
+                stepsDiv.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
